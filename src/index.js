@@ -1,29 +1,49 @@
 import React from './react'
 import ReactDOM from './react-dom'
 
-class Counter extends React.Component {
-    constructor( props ) {
-        super( props );
-        this.state = {
-            num: 1
-        }
-    }
-
-    onClick() {
-        this.setState( { num: this.state.num + 1 } );
-    }
-
-    render() {
-        return (
-            <div>
-                <h1>count: { this.state.num }</h1>
-                <button onClick={ () => this.onClick()}>add</button>
-            </div>
-        );
-    }
+/**
+ * 函数组件
+ */
+function Welcome( props ) {
+    return <h1>Hello, {props.name}</h1>;
 }
 
+function App() {
+    return (
+        <div>
+            <Welcome name="Sara" />
+            <Welcome name="Cahal" />
+            <Welcome name="Edite" />
+        </div>
+    );
+}
 ReactDOM.render(
-    <Counter />,
+    <App />,
     document.getElementById( 'root' )
 );
+
+/**
+ * 类组件
+ */
+// class Welcome extends React.Component {
+//     render() {
+//         return <h1>Hello, {this.props.name}</h1>;
+//     }
+// }
+
+// class App extends React.Component {
+//     render() {
+//         return (
+//             <div>
+//                 <Welcome name="Sara" />
+//                 <Welcome name="Cahal" />
+//                 <Welcome name="Edite" />
+//             </div>
+//         );
+//     }
+// }
+// ReactDOM.render(
+//     <App />,
+//     document.getElementById( 'root' )
+// );
+
