@@ -1,45 +1,34 @@
 import React from './react'
 import ReactDOM from './react-dom'
 
-class Counter extends React.Component {
-    constructor( props ) {
-        super( props );
+class App extends React.Component {
+    constructor() {
+        super();
         this.state = {
-            num: 1
+            num: 0
         }
     }
-
-    componentWillMount() {
-        console.log( 'willmount' );
-    }
-
     componentDidMount() {
-        console.log( 'didmount' );
+        for ( let i = 0; i < 100; i++ ) {
+            this.setState( prevState => {
+                console.log( prevState.num );
+                return {
+                    num: prevState.num + 1
+                }
+            } );
+        }
     }
-
-    componentWillUpdate() {
-        console.log( 'willupdate' );
-    }
-
     componentDidUpdate() {
-        console.log( 'didupdate' );
+        console.log( 'update' )
     }
-
-    onClick() {
-        this.setState( { num: this.state.num + 1 } );
-    }
-
     render() {
-        return (
-            <div>
-                <h1>count: { this.state.num }</h1>
-                <button onClick={ () => this.onClick()}>add</button>
-            </div>
-        );
+        return ( <div className='App'>
+            <h1>{this.state.num}</h1>
+        </div> );
     }
 }
 
 ReactDOM.render(
-    <Counter />,
+    <App />,
     document.getElementById( 'root' )
 );
