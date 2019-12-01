@@ -19,7 +19,18 @@ function createComponent( component, props ) {
 }
 
 
+function unmountComponent( component ) {
+    if ( component.componentWillUnmount ) component.componentWillUnmount();
+    removeNode( component.base);
+}
+
 function setComponentProps( component, props ) {
+
+    if ( !component.base ) {
+            if ( component.componentWillMount ) component.componentWillMount();
+      } else if ( component.componentWillReceiveProps ) {
+            component.componentWillReceiveProps( props );
+      }
 
     component.props = props;
 
@@ -33,7 +44,17 @@ export function renderComponent( component ) {
 
     const renderer = component.render();
 
+    if ( component.base && component.componentWillUpdate ) {
+        component.componentWillUpdate();
+    }
+
     base = _render( renderer );
+
+    if ( component.base ) {
+        if ( component.componentDidUpdate ) component.componentDidUpdate();
+    } else if ( component.componentDidMount ) {
+        component.componentDidMount();
+    }
 
     if ( component.base && component.base.parentNode ) {
         component.base.parentNode.replaceChild( base, component.base );
