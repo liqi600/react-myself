@@ -1,10 +1,12 @@
-// 将上文定义的createElement方法放到对象React中
 function createElement( tag, attrs, ...children ) {
+
+    attrs = attrs || {};
 
     return {
         tag,
         attrs,
-        children
+        children,
+        key: attrs.key || null
     }
 }
 
